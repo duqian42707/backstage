@@ -6,24 +6,24 @@ import java.util.Date;
  * Created by dqwork on 2017/3/29.
  */
 public class SysLog {
-    private Long logId;
-    private Long userId;
+    private Integer logId;
+    private Integer userId;
     private String detail;
     private Date operateTime;
 
-    public Long getLogId() {
+    public Integer getLogId() {
         return logId;
     }
 
-    public void setLogId(Long logId) {
+    public void setLogId(Integer logId) {
         this.logId = logId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
