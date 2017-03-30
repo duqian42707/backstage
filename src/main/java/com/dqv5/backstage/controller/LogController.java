@@ -31,16 +31,17 @@ public class LogController {
     public Map load(String json) {
         Map map = new HashMap();
         try {
-            logger.debug(json);
+            logger.debug("json:---"+json);
             Map dataMap = (Map) JsonUtil.toObject(json);
             if (dataMap != null) {
-                logger.debug(dataMap.toString());
+                logger.debug("dataMap:---"+dataMap.toString());
             }
             Map userInfo = (Map) dataMap.get("userInfo");
             if (userInfo != null) {
-                logger.debug(userInfo.toString());
+                logger.debug("userInfo:---"+userInfo.toString());
             }
-            sysLogService.saveLog(0, userInfo.get("nickName") + "使用了系统");
+            logger.debug("detail:---"+userInfo.get("nickName")+"使用了系统");
+//            sysLogService.saveLog(0, userInfo.get("nickName") + "使用了系统");
             map.put("status", "ok");
         } catch (Exception e) {
             logger.error("", e);
