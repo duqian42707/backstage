@@ -2,9 +2,9 @@ package com.dqv5.backstage.service;
 
 import com.dqv5.backstage.dao.SysLogDao;
 import com.dqv5.backstage.model.SysLog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Service
 public class SysLogService {
-    @Resource
+    @Autowired
     private SysLogDao sysLogDao;
 
     public void saveLog(Integer userId, String detail) {

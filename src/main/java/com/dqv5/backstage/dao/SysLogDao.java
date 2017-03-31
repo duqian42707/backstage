@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface SysLogDao {
 
-    SysLog getByPrimaryKey(Long id);
+    SysLog getByPrimaryKey(Integer id);
 
     void save(SysLog record);
 
