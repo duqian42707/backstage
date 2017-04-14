@@ -60,6 +60,11 @@ public class BasicUserController {
         return map;
     }
 
+    /**
+     *
+     * @param userInfo {openId:'',nickName:'风轻云淡',remark:'我是dq，请同意！'}
+     * @return {status:'ok',data:{isAdmin:'',status:'',userId:''}}
+     */
     @RequestMapping(value = "/checkUser")
     @ResponseBody
     public Map checkUser(String userInfo) {
@@ -69,6 +74,7 @@ public class BasicUserController {
             BasicUser model = new BasicUser();
             model.setOpenId(modelInfo.get("openId").toString());
             model.setNickName(modelInfo.get("nickName").toString());
+            model.setAvatarUrl(modelInfo.get("avatarUrl").toString());
             model = basicUserService.saveOrUpdate(model);
             map.put("data", model);
             map.put("status", "ok");
@@ -92,7 +98,7 @@ public class BasicUserController {
 
     /**
      * 修改用户
-     * @param data {is_admin:'1',status:'2',user_id:'2'}
+     * @param data {isAdmin:'1',status:'2',userId:'2'}
      * @return {status:'ok'}
      */
     @RequestMapping(value = "/updateUser")

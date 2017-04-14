@@ -37,12 +37,12 @@ public class BasicUserDao extends BaseDao {
         }
     }
 
-    public void saveUser(BasicUser record) {
-        save(record);
+    public BasicUser saveUser(BasicUser record) {
+        return (BasicUser) save(record);
     }
 
-    public void updateUser(BasicUser record) {
-        merge(record);
+    public BasicUser updateUser(BasicUser record) {
+        return (BasicUser) merge(record);
     }
 
     public List getAllUser() {

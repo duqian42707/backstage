@@ -14,10 +14,12 @@ public class BasicUser {
     private Integer userId;
     private String openId;
     private String nickName;
+    private String userName;
     private Date modTime;
     private String remark;
     private String isAdmin;
     private String status;
+    private String avatarUrl;
 
     @GenericGenerator(name = "generator", strategy = "increment")
     @Id
@@ -47,6 +49,15 @@ public class BasicUser {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    @Column(name = "USER_NAME")
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Column(name = "MOD_TIME")
@@ -83,5 +94,13 @@ public class BasicUser {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }
