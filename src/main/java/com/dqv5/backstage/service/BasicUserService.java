@@ -35,7 +35,15 @@ public class BasicUserService {
     public void updateUser(Map dataMap) {
         String user_id = dataMap.get("userId").toString();
         Integer userId = Integer.valueOf(user_id);
-
+        BasicUser oldModel = basicUserDao.get(BasicUser.class, userId);
+        oldModel.setModTime(new Date());
+        if (dataMap.get("isAdmin") != null) {
+            oldModel.setIsAdmin(dataMap.get("isAdmin").toString());
+        }
+        if (dataMap.get("status") != null) {
+            oldModel.setStatus(dataMap.get("status").toString());
+        }
+        basicUserDao.merge(oldModel);
     }
 
     public List getUserList() {

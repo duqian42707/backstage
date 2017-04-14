@@ -61,7 +61,6 @@ public class BasicUserController {
     }
 
     /**
-     *
      * @param userInfo {openId:'',nickName:'风轻云淡',remark:'我是dq，请同意！'}
      * @return {status:'ok',data:{isAdmin:'',status:'',userId:''}}
      */
@@ -87,6 +86,7 @@ public class BasicUserController {
 
     /**
      * 获取用户列表
+     *
      * @return
      */
     @RequestMapping(value = "/userList")
@@ -98,31 +98,19 @@ public class BasicUserController {
 
     /**
      * 修改用户
+     *
      * @param data {isAdmin:'1',status:'2',userId:'2'}
      * @return {status:'ok'}
      */
     @RequestMapping(value = "/updateUser")
     @ResponseBody
-    public Map updateUser(String data){
+    public Map updateUser(String data) {
         Map dataMap = (Map) JsonUtil.toObject(data);
         basicUserService.updateUser(dataMap);
         Map map = new HashMap();
-        map.put("status","ok");
+        map.put("status", "ok");
         return map;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public static void main(String[] args) {
