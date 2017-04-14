@@ -28,14 +28,14 @@ public class HttpRequestUtil {
         String param = "bucket=dqv5";
 //        String msg = "你好hello";
 //        msg= URLEncoder.encode(msg,"GBK");
-        Map<String,String> headers = new HashMap<String,String>();
-        headers.put("Content-Type","application/x-www-form-urlencoded");
-        headers.put("Authorization","QBox TzDxMGgp1cefk6_Q9koxhzKUCEutUZ6JWtavTZV0:5ekGslJbnkAPKCX_czfBRBQC3vw=");
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        headers.put("Authorization", "QBox TzDxMGgp1cefk6_Q9koxhzKUCEutUZ6JWtavTZV0:5ekGslJbnkAPKCX_czfBRBQC3vw=");
 //        System.out.println(sendGet(url, param,headers));
 //        System.out.println(sendPost(url4, param));
 //        HttpClientUtil.postHttp(url4+"?"+param,"GBK");
 
-        String str = sendGet(url,param, headers);
+        String str = sendGet(url, param, headers);
         System.out.println(str);
     }
 
@@ -53,10 +53,12 @@ public class HttpRequestUtil {
         if (param != null && !"".equals(param)) url += "?" + param;
         HttpGet httpget = new HttpGet(url);
         //设置自定义头信息
-        Iterator<Map.Entry<String, String>> iterator = headers.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> entry = iterator.next();
-            httpget.setHeader(entry.getKey(), entry.getValue());
+        if (headers != null) {
+            Iterator<Map.Entry<String, String>> iterator = headers.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = iterator.next();
+                httpget.setHeader(entry.getKey(), entry.getValue());
+            }
         }
         CloseableHttpResponse response = null;
         try {

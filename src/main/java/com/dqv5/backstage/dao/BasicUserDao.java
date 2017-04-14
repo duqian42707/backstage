@@ -8,13 +8,13 @@ import java.util.List;
  * Created by dq on 2017/3/31.
  */
 public interface BasicUserDao {
-    BasicUser getByPrimaryKey(Integer id);
+    BasicUser getUserByPrimaryKey(Integer id);
 
-    BasicUser getByOpenId(Integer openId);
+    BasicUser getUserByOpenId(String openId);
 
-    void save(BasicUser record);
+    void saveUser(BasicUser record);
 
-    void update(BasicUser record);
+    void updateUser(BasicUser record);
 
-    List<BasicUser> getAll();
+    List<BasicUser> getAllUser();
 }

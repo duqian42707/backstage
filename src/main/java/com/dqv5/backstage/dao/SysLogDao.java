@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface SysLogDao {
 
-    SysLog getByPrimaryKey(Integer id);
+    SysLog getLogByPrimaryKey(Integer id);
 
-    void save(SysLog record);
+    void saveLog(SysLog record);
 
-    List<SysLog> getAll();
+    List<SysLog> getAllLog();
 }

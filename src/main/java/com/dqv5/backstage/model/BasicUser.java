@@ -7,9 +7,12 @@ import java.util.Date;
  */
 public class BasicUser {
     private Integer userId;
-    private Integer openId;
+    private String openId;
     private String nickName;
     private Date modTime;
+    private String remark;
+    private String isAdmin;
+    private String status;
 
     public Integer getUserId() {
         return userId;
@@ -19,11 +22,11 @@ public class BasicUser {
         this.userId = userId;
     }
 
-    public Integer getOpenId() {
+    public String getOpenId() {
         return openId;
     }
 
-    public void setOpenId(Integer openId) {
+    public void setOpenId(String openId) {
         this.openId = openId;
     }
 
@@ -41,5 +44,29 @@ public class BasicUser {
 
     public void setModTime(Date modTime) {
         this.modTime = modTime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

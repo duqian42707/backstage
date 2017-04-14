@@ -21,11 +21,11 @@ public class SysLogService {
         sysLog.setUserId(userId);
         sysLog.setDetail(detail);
         sysLog.setOperateTime(new Date());
-        sysLogDao.save(sysLog);
+        sysLogDao.saveLog(sysLog);
     }
 
 
     public List getLogList() {
-        return sysLogDao.getAll();
+        return sysLogDao.getAllLog();
     }
 }

@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dqv5.backstage.dao.SysLogDao">
-    <resultMap id="BaseResultMap" type="com.dqv5.backstage.model.BasicUser">
+<mapper namespace="com.dqv5.backstage.dao.BasicUserDao">
+    <resultMap id="BasicUserResultMap" type="com.dqv5.backstage.model.BasicUser">
         <id column="user_id" property="userId"/>
         <result column="open_id" property="openId"/>
         <result column="nick_name" property="nickName"/>
-        <result column="mod_time" property="modTime"/>
+        <result column="remark" property="remark"/>
+        <result column="is_admin" property="isAdmin"/>
+        <result column="status" property="status"/>
     </resultMap>
 
-    <insert id="save" parameterType="com.dqv5.backstage.model.BasicUser">
-        insert into basic_user (open_id,nick_name,mod_time )
-        values (#{openId},#{nickName},#{modTime} )
+    <insert id="saveUser" parameterType="com.dqv5.backstage.model.BasicUser">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="userId">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into basic_user (open_id,nick_name,mod_time,remark,is_admin ,status)
+        values (#{openId},#{nickName},#{modTime},#{remark},#{isAdmin},#{status} )
     </insert>
-    <insert id="update" parameterType="com.dqv5.backstage.model.BasicUser">
-        update basic_user set open_id=#{openId},nick_name=#{nickName},mod_time=#{modTime}
+    <insert id="updateUser" parameterType="com.dqv5.backstage.model.BasicUser">
+        <trim prefix="set" suffixOverrides=",">
+
+        </trim>
+        update basic_user set open_id=#{openId},nick_name=#{nickName},mod_time=#{modTime},remark=#{remark},is_admin=#{isAdmin},status=#{status}
           where user_id = #{userId}
     </insert>
-    <select id="getByPrimaryKey" resultMap="BaseResultMap">
+    <select id="getUserByPrimaryKey" resultMap="BasicUserResultMap">
         SELECT * FROM basic_user where user_id =#{userId}
     </select>
-    <select id="getByOpenId" resultMap="BaseResultMap">
+    <select id="getUserByOpenId" resultMap="BasicUserResultMap" parameterType="java.lang.String">
         SELECT * FROM basic_user where open_id =#{openId}
     </select>
-    <select id="getAll" resultMap="BaseResultMap">
+    <select id="getAllUser" resultMap="BasicUserResultMap">
         SELECT * FROM basic_user order by mod_time desc;
     </select>
 

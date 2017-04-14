@@ -32,7 +32,18 @@ public class JsonUtil {
 		.create();
 		return g.fromJson(data, Object.class);
 	}
-	public static void main(String[] args) {
+
+    public static <T> T fromJson(String data, Class<T> classOfT) {
+        Gson g = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .disableHtmlEscaping()//避免Html特殊字符转为Unicode
+                .serializeNulls()//值为null的key-value也输出
+                .create();
+        T obj = g.fromJson(data, classOfT);
+        return obj;
+    }
+
+    public static void main(String[] args) {
 		String a = "{\"id\":43}";
 		System.out.println(toObject(a));
 	}
