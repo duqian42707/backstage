@@ -1,20 +1,54 @@
 package com.dqv5.backstage.dao;
 
+import com.dqv5.backstage.hibernate.BaseDao;
 import com.dqv5.backstage.model.BasicUser;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dq on 2017/3/31.
  */
-public interface BasicUserDao {
-    BasicUser getUserByPrimaryKey(Integer id);
+@Repository
+public class BasicUserDao extends BaseDao {
 
-    BasicUser getUserByOpenId(String openId);
+    public BasicUser getUserByPrimaryKey(Integer id) {
+        String hql = "from BasicUser u where u.userId = ? ";
+        List param = new ArrayList();
+        param.add(id);
+        List<BasicUser> list = findHqlList(hql, param);
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+    }
 
-    void saveUser(BasicUser record);
+    public BasicUser getUserByOpenId(String openId) {
+        String hql = "from BasicUser u where u.openId = ? ";
+        List param = new ArrayList();
+        param.add(openId);
+        List<BasicUser> list = findHqlList(hql, param);
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+    }
 
-    void updateUser(BasicUser record);
+    public void saveUser(BasicUser record) {
+        save(record);
+    }
 
-    List<BasicUser> getAllUser();
+    public void updateUser(BasicUser record) {
+        merge(record);
+    }
+
+    public List getAllUser() {
+        String hql = "from BasicUser ";
+        List param = new ArrayList();
+        List<BasicUser> list = findHqlList(hql, param);
+        return list;
+    }
 }
