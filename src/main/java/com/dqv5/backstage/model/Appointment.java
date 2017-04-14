@@ -3,7 +3,6 @@ package com.dqv5.backstage.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -44,10 +43,10 @@ public class Appointment {
     private String week;
 
     @Column(name = "START_TIME")
-    private Time startTime;
+    private Date startTime;
 
     @Column(name = "END_TIME")
-    private Time endTime;
+    private Date endTime;
 
     @Column(name = "INDEPENDENT")
     private String independent;
@@ -133,19 +132,19 @@ public class Appointment {
         this.week = week;
     }
 
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

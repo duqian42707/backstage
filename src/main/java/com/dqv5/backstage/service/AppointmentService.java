@@ -2,9 +2,11 @@ package com.dqv5.backstage.service;
 
 import com.dqv5.backstage.dao.AppointmentDao;
 import com.dqv5.backstage.model.Appointment;
+import com.dqv5.backstage.util.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +30,14 @@ public class AppointmentService {
             model.setStudent(modelInfo.get("student") == null ? null : modelInfo.get("student").toString());
             model.setTeacher(modelInfo.get("teacher") == null ? null : modelInfo.get("teacher").toString());
             model.setType(modelInfo.get("type").toString());
-//            model.setAppointDate();
+            String appointDate = modelInfo.get("appointDate").toString();
+            model.setAppointDate(DateTimeUtil.formatToDateYMD(appointDate));
             model.setWeek(modelInfo.get("week").toString());
-//            model.setStartTime();
-//            model.setEndTime();
-            model.setIndependent(modelInfo.get("independent").toString() == "true" ? "1" : "0");
+            String startTime = modelInfo.get("startTime").toString();
+            String endTime = modelInfo.get("endTime").toString();
+            model.setStartTime(DateTimeUtil.formatToDateYMDHms(startTime));
+            model.setEndTime(DateTimeUtil.formatToDateYMDHms(endTime));
+            model.setIndependent(modelInfo.get("independent").toString().equals("true") ? "1" : "0");
             model.setRemark(modelInfo.get("remark") == null ? null : modelInfo.get("remark").toString());
             model.setModTime(new Date());
             model.setState("1");

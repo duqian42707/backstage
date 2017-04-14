@@ -14,7 +14,10 @@ import java.util.Map;
 public class AppointmentDao extends BaseDao {
 
     public List getAppointmentList() {
-        String sql = "select * from appointment ";
+        String sql = "SELECT t.appoint_id,t.user_id,t.college,t.academy,t.student,t.teacher,t.type,t.appoint_date,t.week, " +
+//                "DATE_FORMAT(t.start_time,'%Y-%m-%d %H:%i:%s') start_time, DATE_FORMAT(t.end_time,'%Y-%m-%d %H:%i:%s') end_time, " +
+                "DATE_FORMAT(t.start_time,'%H:%i') start_time, DATE_FORMAT(t.end_time,'%H:%i') end_time, " +
+                "t.independent,t.remark,t.mod_time,t.state FROM appointment t ORDER BY t.start_time";
         return findSqlListMap(sql, null);
     }
 
