@@ -27,6 +27,7 @@ public class BasicUserService {
         } else {
             user.setModTime(new Date());
             user.setIsAdmin("0");
+            user.setStatus("1");
             return basicUserDao.saveUser(user);
         }
     }
