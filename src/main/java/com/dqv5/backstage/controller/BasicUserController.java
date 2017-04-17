@@ -96,6 +96,21 @@ public class BasicUserController {
         return list;
     }
 
+
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getUserInfo")
+    @ResponseBody
+    public Map getUserInfo(String userId) {
+        Map map = basicUserService.getUserInfo(userId);
+        return map;
+    }
+
+
+
     /**
      * 修改用户
      *

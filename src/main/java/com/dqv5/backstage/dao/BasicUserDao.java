@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dq on 2017/3/31.
@@ -13,11 +14,13 @@ import java.util.List;
 @Repository
 public class BasicUserDao extends BaseDao {
 
-    public BasicUser getUserByPrimaryKey(Integer id) {
-        String hql = "from BasicUser u where u.userId = ? ";
+    public Map getUserByPrimaryKey(Integer id) {
+        String sql = "select u.user_id userId,open_id openId,u.nick_name nickName,user_name userName,remark," +
+                " DATE_FORMAT(u.mod_time,'%Y-%m-%d %H:%i:%s') modTime,u.is_admin isAdmin ,status,avatarUrl avatarUrl  " +
+                " from basic_user u where u.user_id = ? ";
         List param = new ArrayList();
         param.add(id);
-        List<BasicUser> list = findHqlList(hql, param);
+        List<Map> list = findSqlListMap(sql, param);
         if (list.isEmpty()) {
             return null;
         } else {

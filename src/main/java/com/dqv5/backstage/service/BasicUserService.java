@@ -50,4 +50,10 @@ public class BasicUserService {
         List list = basicUserDao.getAllUser();
         return list;
     }
+
+    public Map getUserInfo(String userId) {
+        Integer id = Integer.valueOf(userId);
+        Map user = basicUserDao.getUserByPrimaryKey(id);
+        return user;
+    }
 }
