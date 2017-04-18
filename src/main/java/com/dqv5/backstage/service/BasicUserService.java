@@ -1,7 +1,12 @@
 package com.dqv5.backstage.service;
 
+import com.dqv5.backstage.common.Constants;
 import com.dqv5.backstage.dao.BasicUserDao;
 import com.dqv5.backstage.model.BasicUser;
+import com.dqv5.backstage.util.HttpRequestUtil;
+import com.dqv5.backstage.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,7 @@ import java.util.Map;
  */
 @Service
 public class BasicUserService {
+    private Logger logger = LoggerFactory.getLogger(BasicUserService.class);
     @Autowired
     private BasicUserDao basicUserDao;
 
@@ -56,4 +62,19 @@ public class BasicUserService {
         Map user = basicUserDao.getUserByPrimaryKey(id);
         return user;
     }
+
+    public String getOpenIdByCode(String code) {
+        String openId = null;
+        try {
+            String url = "https://api.weixin.qq.com/sns/jscode2session";
+            String params = "appid=" + Constants.APP_ID + "&secret=" + Constants.APP_SECRET + "&js_code=" + code + "&grant_type=authorization_code";
+            String res = HttpRequestUtil.sendGet(url, params, null);
+            Map ret = (Map) JsonUtil.toObject(res);
+            if (ret.get("openid") != null) openId = ret.get("openid").toString();
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+        return openId;
+    }
+
 }

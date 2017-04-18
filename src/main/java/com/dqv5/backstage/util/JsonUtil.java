@@ -66,6 +66,7 @@ public class JsonUtil {
 		 .setDateFormat("yyyy-MM-dd HH:mm:ss")
 		 .disableHtmlEscaping()
 	     .create();
+		
 		String jsonData = g.toJson(list);
 		System.out.println("jsonData:"+jsonData);
 	}

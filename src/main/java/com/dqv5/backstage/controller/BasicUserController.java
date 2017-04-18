@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,7 +48,7 @@ public class BasicUserController {
 
     @RequestMapping(value = "/saveOrUpdate")
     @ResponseBody
-    public Map saveOrUpdate(String json) {
+    public Map saveOrUpdate(@RequestBody String json) {
         Map map = new HashMap();
         try {
             BasicUser model = JsonUtil.fromJson(json, BasicUser.class);
@@ -66,12 +67,15 @@ public class BasicUserController {
      */
     @RequestMapping(value = "/checkUser")
     @ResponseBody
-    public Map checkUser(String userInfo) {
+    public Map checkUser(@RequestBody String json) {
         Map map = new HashMap();
         try {
-            Map modelInfo = (Map) JsonUtil.toObject(userInfo);
+            Map jsonMap = (Map) JsonUtil.toObject(json);
+            String code = jsonMap.get("code").toString();
+            Map modelInfo = (Map) jsonMap.get("userInfo");
             BasicUser model = new BasicUser();
-            model.setOpenId(modelInfo.get("openId").toString());
+            String openId = basicUserService.getOpenIdByCode(code);
+            model.setOpenId(openId);
             model.setNickName(modelInfo.get("nickName").toString());
             model.setAvatarUrl(modelInfo.get("avatarUrl").toString());
             model = basicUserService.saveOrUpdate(model);
@@ -110,7 +114,6 @@ public class BasicUserController {
     }
 
 
-
     /**
      * 修改用户
      *
@@ -119,7 +122,7 @@ public class BasicUserController {
      */
     @RequestMapping(value = "/updateUser")
     @ResponseBody
-    public Map updateUser(String data) {
+    public Map updateUser(@RequestBody String data) {
         Map dataMap = (Map) JsonUtil.toObject(data);
         basicUserService.updateUser(dataMap);
         Map map = new HashMap();

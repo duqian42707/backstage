@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,7 +27,7 @@ public class AppointmentController {
 
     @RequestMapping(value = "/saveOrUpdate")
     @ResponseBody
-    public Map saveOrUpdate(String json) {
+    public Map saveOrUpdate(@RequestBody String json) {
         Map map = new HashMap();
         Map modelInfo = (Map) JsonUtil.toObject(json);
         appointmentService.saveOrUpdate(modelInfo);
