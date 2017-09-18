@@ -1,12 +1,11 @@
 package com.dqv5.backstage.service;
 
-import com.dqv5.backstage.dao.AppointmentDao;
 import com.dqv5.backstage.model.Appointment;
+import com.dqv5.backstage.repository.AppointmentRepository;
 import com.dqv5.backstage.util.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,13 +17,12 @@ import java.util.Map;
 public class AppointmentService {
 
     @Autowired
-    private AppointmentDao appointmentDao;
+    private AppointmentRepository appointmentRepository;
 
     public void saveOrUpdate(Map modelInfo) {
         if (modelInfo.get("appointId") == null) {
             Appointment model = new Appointment();
-            Integer userId = Integer.valueOf(modelInfo.get("userId").toString());
-            model.setUserId(userId);
+            model.setUserId(modelInfo.get("userId").toString());
             model.setCollege(modelInfo.get("college") == null ? null : modelInfo.get("college").toString());
             model.setAcademy(modelInfo.get("academy") == null ? null : modelInfo.get("academy").toString());
             model.setStudent(modelInfo.get("student") == null ? null : modelInfo.get("student").toString());
@@ -41,24 +39,18 @@ public class AppointmentService {
             model.setRemark(modelInfo.get("remark") == null ? null : modelInfo.get("remark").toString());
             model.setModTime(new Date());
             model.setState("1");
-            appointmentDao.save(model);
-        } else {
-//            Appointment oldModel = appointmentDao.get(Appointment.class, model.getAppointId());
-//            appointmentDao.merge(oldModel);
+            model = appointmentRepository.save(model);
+            model.setAppointId(model.get_id());
+            model = appointmentRepository.save(model);
         }
 
     }
 
     public List getAppointmentList() {
-        return appointmentDao.getAppointmentList();
+        return appointmentRepository.findAll();
     }
 
-    public Map getAppointment(Integer id) {
-        List<Map> list = appointmentDao.getAppointmentById(id);
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            return list.get(0);
-        }
+    public Appointment getAppointment(Integer id) {
+        return appointmentRepository.findAppointmentByAppointId(id);
     }
 }

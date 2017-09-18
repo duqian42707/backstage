@@ -1,78 +1,67 @@
 package com.dqv5.backstage.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
  * Created by dqwork on 2017/4/14.
  */
-@Entity
-@Table(name = "APPOINTMENT")
 public class Appointment {
 
-    @GenericGenerator(name = "generator", strategy = "increment")
     @Id
-    @GeneratedValue(generator = "generator")
-    @Column(name = "APPOINT_ID", unique = true, nullable = false, scale = 0)
-    private Integer appointId;
+    private String _id;
 
-    @Column(name = "USER_ID")
-    private Integer userId;
+    private String appointId;
 
-    @Column(name = "COLLEGE")
+    private String userId;
+
     private String college;
 
-    @Column(name = "ACADEMY")
     private String academy;
 
-    @Column(name = "STUDENT")
     private String student;
 
-    @Column(name = "TEACHER")
     private String teacher;
 
-    @Column(name = "TYPE")
     private String type;
 
-    @Column(name = "APPOINT_DATE")
     private Date appointDate;
 
-    @Column(name = "WEEK")
     private String week;
 
-    @Column(name = "START_TIME")
     private Date startTime;
 
-    @Column(name = "END_TIME")
     private Date endTime;
 
-    @Column(name = "INDEPENDENT")
     private String independent;
 
-    @Column(name = "REMARK")
     private String remark;
 
-    @Column(name = "MOD_TIME")
     private Date modTime;
 
-    @Column(name = "STATE")
     private String state;
 
-    public Integer getAppointId() {
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getAppointId() {
         return appointId;
     }
 
-    public void setAppointId(Integer appointId) {
+    public void setAppointId(String appointId) {
         this.appointId = appointId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -1,8 +1,8 @@
 package com.dqv5.backstage.service;
 
 import com.dqv5.backstage.common.Constants;
-import com.dqv5.backstage.dao.BasicUserDao;
 import com.dqv5.backstage.model.BasicUser;
+import com.dqv5.backstage.repository.BasicUserRepository;
 import com.dqv5.backstage.util.HttpRequestUtil;
 import com.dqv5.backstage.util.JsonUtil;
 import org.slf4j.Logger;
@@ -21,27 +21,31 @@ import java.util.Map;
 public class BasicUserService {
     private Logger logger = LoggerFactory.getLogger(BasicUserService.class);
     @Autowired
-    private BasicUserDao basicUserDao;
+    private BasicUserRepository basicUserRepository;
 
     public BasicUser saveOrUpdate(BasicUser user) {
-        BasicUser oldModel = basicUserDao.getUserByOpenId(user.getOpenId());
+        BasicUser oldModel = basicUserRepository.findBasicUserByOpenId(user.getOpenId());
         if (oldModel != null) {
             oldModel.setNickName(user.getNickName());
             oldModel.setAvatarUrl(user.getAvatarUrl());
             oldModel.setModTime(new Date());
-            return basicUserDao.updateUser(oldModel);
+            oldModel.setUserId(oldModel.get_id());
+            oldModel = basicUserRepository.save(oldModel);
+            return oldModel;
         } else {
             user.setModTime(new Date());
             user.setIsAdmin("0");
             user.setStatus("1");
-            return basicUserDao.saveUser(user);
+            user = basicUserRepository.save(user);
+            user.setUserId(user.get_id());
+            user = basicUserRepository.save(user);
+            return user;
         }
     }
 
     public void updateUser(Map dataMap) {
         String user_id = dataMap.get("userId").toString();
-        Integer userId = Integer.valueOf(user_id);
-        BasicUser oldModel = basicUserDao.get(BasicUser.class, userId);
+        BasicUser oldModel = basicUserRepository.findBasicUserBy_id(user_id);
         oldModel.setModTime(new Date());
         if (dataMap.get("isAdmin") != null) {
             oldModel.setIsAdmin(dataMap.get("isAdmin").toString());
@@ -49,17 +53,16 @@ public class BasicUserService {
         if (dataMap.get("status") != null) {
             oldModel.setStatus(dataMap.get("status").toString());
         }
-        basicUserDao.merge(oldModel);
+        basicUserRepository.save(oldModel);
     }
 
     public List getUserList() {
-        List list = basicUserDao.getAllUser();
+        List list = basicUserRepository.findAll();
         return list;
     }
 
-    public Map getUserInfo(String userId) {
-        Integer id = Integer.valueOf(userId);
-        Map user = basicUserDao.getUserByPrimaryKey(id);
+    public BasicUser getUserInfo(String userId) {
+        BasicUser user = basicUserRepository.findBasicUserBy_id(userId);
         return user;
     }
 

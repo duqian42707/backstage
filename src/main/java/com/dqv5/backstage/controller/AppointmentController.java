@@ -44,8 +44,8 @@ public class AppointmentController {
 
     @RequestMapping(value = "/getAppointment")
     @ResponseBody
-    public Map getAppointment(Integer id){
-        Map map = appointmentService.getAppointment(id);
+    public Appointment getAppointment(Integer id){
+        Appointment map = appointmentService.getAppointment(id);
         return map;
     }
 }

@@ -108,8 +108,8 @@ public class BasicUserController {
      */
     @RequestMapping(value = "/getUserInfo")
     @ResponseBody
-    public Map getUserInfo(String userId) {
-        Map map = basicUserService.getUserInfo(userId);
+    public BasicUser getUserInfo(String userId) {
+        BasicUser map = basicUserService.getUserInfo(userId);
         return map;
     }
 
